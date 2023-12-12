@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forward Chaining - Diagnosis Tingkat Stres</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      #result {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Forward Chaining - Diagnosis Tingkat Stres</h1>
+
+    <form id="symptomForm">
+      <label>
+        <input type="checkbox" name="symptom" value="G01" /> G01 - Gejala 01
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G02" /> G02 - Gejala 02
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G03" /> G03 - Gejala 03
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G04" /> G04 - Gejala 04
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G05" /> G05 - Gejala 05
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G06" /> G06 - Gejala 06
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G07" /> G07 - Gejala 07
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G08" /> G08 - Gejala 08
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G09" /> G09 - Gejala 09
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G10" /> G10 - Gejala 10
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G11" /> G11 - Gejala 11
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G12" /> G12 - Gejala 12
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G13" /> G13 - Gejala 13
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G14" /> G14 - Gejala 14
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G15" /> G15 - Gejala 15
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G16" /> G16 - Gejala 16
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G17" /> G17 - Gejala 17
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G18" /> G18 - Gejala 18
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G19" /> G19 - Gejala 19
+      </label>
+      <label>
+        <input type="checkbox" name="symptom" value="G20" /> G20 - Gejala 20
+      </label>
+
+      <button type="button" onclick="diagnose()">Diagnosa</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      function diagnose() {
+        // Mendapatkan gejala yang dipilih
+        const symptoms = document.querySelectorAll(
+          'input[name="symptom"]:checked'
+        );
+        const selectedSymptoms = Array.from(symptoms).map(
+          (symptom) => symptom.value
+        );
+
+        // Melakukan Forward Chaining
+        let diagnosisResult = "";
+
+        if (
+          selectedSymptoms.includes("G07") ||
+          selectedSymptoms.includes("G08") ||
+          selectedSymptoms.includes("G09")
+        ) {
+          diagnosisResult = "Stres Berat";
+        } else if (
+          selectedSymptoms.filter((symptom) =>
+            ["G03", "G05", "G11", "G17", "G18", "G19", "G20"].includes(symptom)
+          ).length >= 2
+        ) {
+          diagnosisResult = "Stres Sedang";
+        } else if (
+          selectedSymptoms.filter((symptom) =>
+            ["G01", "G02", "G06", "G12", "G13", "G14", "G16"].includes(symptom)
+          ).length >= 1
+        ) {
+          diagnosisResult = "Stres Ringan";
+        } else if (
+          selectedSymptoms.includes("G04") &&
+          selectedSymptoms.includes("G10")
+        ) {
+          diagnosisResult = "Gangguan Mood";
+        } else if (
+          !selectedSymptoms.length ||
+          selectedSymptoms.includes("G04") ||
+          selectedSymptoms.includes("G10")
+        ) {
+          diagnosisResult = "Gangguan Mood";
+        }
+
+        // Menampilkan hasil diagnosa
+        const resultElement = document.getElementById("result");
+        resultElement.textContent = `Hasil Diagnosa: ${diagnosisResult}`;
+      }
+    </script>
+  </body>
+</html>
